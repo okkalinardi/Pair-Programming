@@ -1,20 +1,22 @@
 'use strict';
- const arr = [
-   {
-     name: 'Budi Utomo',
-     email: 'budi@gmail.com',
-     tag: 'fotografi',
-     isHired: 0,
-     createdAt: new Date(),
-     updatedAt: new Date()
-   },
-   {
+const arr = [
+  {
+    name: 'Budi Utomo',
+    email: 'budi@gmail.com',
+    tag: 'fotografi',
+    isHired: 0,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    slot: 4
+  },
+  {
     name: 'Bayu Oktari',
     email: 'bayu@gmail.com',
     tag: 'Mural',
     isHired: 0,
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    slot: 5
   },
   {
     name: 'Nadia Utami',
@@ -22,7 +24,8 @@
     tag: 'fotografi',
     isHired: 0,
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    slot: 3
   },
   {
     name: 'Kiara Knightley',
@@ -30,7 +33,8 @@
     tag: 'Mural',
     isHired: 0,
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    slot: 7
   },
   {
     name: 'Butet Nugroho',
@@ -38,9 +42,10 @@
     tag: 'fotografi',
     isHired: 0,
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    slot: 6
   }
- ]
+]
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Senimans', arr, {});
