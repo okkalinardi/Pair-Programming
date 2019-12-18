@@ -8,7 +8,7 @@ module.exports = {
 
       Example:
       */
-    return queryInterface.addColumn('Users', 'secret', Sequelize.INTEGER);
+    return queryInterface.addColumn('Users', 'secret', Sequelize.STRING);
   },
 
   down: (queryInterface, Sequelize) => {
