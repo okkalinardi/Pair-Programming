@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Matching Artists</title>
+</head>
+
+<body>
+    <h1>These are our currated artists that might fill your need!</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Slot Availables
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let i = 0; i < seniman.length; i++){ %>
+            <tr>
+                <td>
+                    <a href="/pick-project/<%=dataUser%>/<%=seniman[i].tag%>/<%=seniman[i].id%>">
+                        <%= seniman[i].name %>
+                    </a>
+                </td>
+                <td>
+                    <%= (seniman[i].slot - seniman[i].isHired) %>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

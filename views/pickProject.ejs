@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pick Project</title>
+</head>
+
+<body>
+
+    <h1>Pick your art project</h1>
+    <p>Pick the type of art that you are looking for and we're going to introduce you to our list of magnificent artists
+    </p>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>
+                    Nomor
+                </th>
+                <th>
+                    Kategori Seni
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let i = 0; i < tags.length; i++){ %>
+            <tr>
+                <td>
+                    <%= (i+1) %>
+                </td>
+                <td>
+                    <a href="/pick-project/<%= dataUser %>/<%=tags[i]%>">
+                        <%= tags[i].toUpperCase() %>
+                    </a>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

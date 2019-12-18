@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Artist Profile</title>
+</head>
+
+<body>
+
+    <h1>
+        <%= seniman.name %>
+    </h1>
+    <h2>
+        <%= seniman.tag %>
+    </h2>
+    <h3>
+        <%= seniman.name%>'s works
+    </h3>
+
+    <p>Like <%= seniman.name%>'s works? Hire them!</p>
+    <form method="POST">
+        <label for="deskripsi">Deskripsi project kamu</label>
+        <input type="text" name="deskripsi" placeholder="nama project, dan keterangan tambahan lain"><br>
+        <input type="hidden" value="<%=seniman.id%>" name="id"><br>
+        <button type="submit" value="submit">Hire</button>
+    </form>
+
+
+</body>
+
+</html>
