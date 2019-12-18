@@ -8,11 +8,11 @@ class userController{
             name: req.body.name,
             email: req.body.email,
             isLogin: 0,
-            isAdmin: 1,
+            isAdmin: 0,
             password: req.body.password
         })
         .then(data=>{
-            res.send('SUKSES')
+            res.send('SUKSES regist')
         })
         .catch(err=>{
             res.send(err)
@@ -25,6 +25,7 @@ class userController{
     }
 
     static userLogin(req, res){
+        let userInfo
         user.findOne({where:{isLogin : 1}})
         .then(loginData=>{
             if(loginData){
@@ -34,6 +35,7 @@ class userController{
             }
         })
         .then(userData=>{
+            userInfo = userData
             if(!userData){
                 res.send('email tidak ditemukan')
             }else{
@@ -53,7 +55,7 @@ class userController{
         }
         })
         .then(data=>{
-            res.send('berhasil masuk')
+            res.send('sukses login')
         })
         .catch(err=>{
             res.send(err)
