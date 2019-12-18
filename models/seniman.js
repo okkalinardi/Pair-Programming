@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
 class Seniman extends Model{
+  
 }
 Seniman.init({
   name: DataTypes.STRING,
