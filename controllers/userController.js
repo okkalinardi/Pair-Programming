@@ -1,5 +1,7 @@
 const user = require('../models').User
 const hashPass = require('../helper/passwordHash')
+const seniman = require('../models').Seniman
+const senimanUser = require('../models').SenimanUser
 
 class userController {
     static addUser(req, res) {
@@ -56,8 +58,8 @@ class userController {
                 }
             })
             .then(data => {
-                // res.send('berhasil masuk')
-                res.render('user', { dataUser: infoUser })
+                res.send('berhasil masuk')
+                // res.render('user', { dataUser: infoUser })
             })
             .catch(err => {
                 res.send(err)
@@ -79,6 +81,85 @@ class userController {
             })
             .then(data => {
                 res.send('berhasil logout')
+            })
+            .catch(err => {
+                res.send(err)
+            })
+    }
+
+    static pageAdmin(req, res) {
+        seniman.findAll({
+            include: user
+        }, {
+                order: [
+                    ["id", "ASC"]
+                ]
+            })
+            .then(datas => {
+                // res.send(datas)
+                res.render('pageAdmin', { datas: datas })
+            })
+            .catch(err => {
+                res.send(err)
+            })
+    }
+
+    static editArtist(req, res) {
+        // res.send(req.params)
+        seniman.findOne({
+            where: {
+                id: req.params.senimanId
+            }
+        })
+            .then(data => {
+                res.render('formEditArtist', { data: data })
+            })
+            .catch(err => {
+                res.send(err)
+            })
+    }
+
+    static upArtist(req, res) {
+        // res.send(req.body)
+        seniman.update({
+            name: req.body.name,
+            email: req.body.email,
+            tag: req.body.tag
+        }, {
+                where: {
+                    id: req.params.senimanId
+                }
+            })
+            .then(() => {
+                res.redirect('/user/admin')
+            })
+    }
+
+    static deleteArtist(req, res) {
+        let found
+        seniman.findOne({
+            where: {
+                id: req.params.senimanId
+            }
+        })
+            .then(datas => {
+                found = datas
+                // res.send(datas)
+                return seniman.destroy({
+                    where: {
+                        id: datas.id
+                    }
+                })
+                    .then(() => {
+                        return senimanUser.destroy({
+                            where: {
+                                SenimanId: found.id
+                            }
+                        })
+                            .then(() => {
+                                res.redirect('/user/admin')
+                            })
+                    })
             })
             .catch(err => {
                 res.send(err)
