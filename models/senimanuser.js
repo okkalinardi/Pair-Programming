@@ -5,6 +5,12 @@ module.exports = (sequelize, DataTypes) => {
   class SenimanUser extends Model{
   }
   SenimanUser.init({
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     UserId: DataTypes.INTEGER,
     SenimanId: DataTypes.INTEGER,
     projectStatus: DataTypes.INTEGER,

@@ -7,7 +7,7 @@ module.exports = {
       email: 'okka@gmail.com',
       isLogin: 0,
       isAdmin: 1,
-      password: '1030eb1b273e274252e7cdddfa71e6fd77c8b97d56e605ec108181962b9871bc', //admin
+      password: '$2b$10$VSUfDpw0ptTbKB9ZBkklKuMtIkjX2Tg44wHPSLHx2DIW9r45j9IXi', //admin
       secret: 234567898765434.1,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -17,7 +17,7 @@ module.exports = {
       email: 'amalya@gmail.com',
       isLogin: 0,
       isAdmin: 1,
-      password: '312ee787bee606200f4cccf96f53cfe01a1aee8a873f2dc24f51c454735643ae', //admin
+      password: '$2b$10$.4ZzZphzRIg9UNuR7mz8iekphS8IhELOG4SLx9HKLZ1N76JOHvI/2', //admin
       secret: 234567898765434.03,
       createdAt: new Date(),
       updatedAt: new Date()
