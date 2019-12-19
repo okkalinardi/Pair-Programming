@@ -1,5 +1,5 @@
 'use strict';
-const hashPass = require('../helper/passwordHash')
+const hashPass = require('../helper/bcryptHash')
 
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
@@ -25,11 +25,14 @@ module.exports = (sequelize, DataTypes) => {
     secret: DataTypes.STRING
   }, {hooks:{
     beforeCreate: (instance, options)=>{
-      console.log(instance)
-      const secret = Math.random()+234567898765434
-      instance.password = hashPass(instance.password, String(secret))
-      instance.secret = String(secret)
-      console.log(instance)
+      return hashPass(instance.password)
+      .then(newPass=>{
+        // console.log(newPass)
+        instance.password = newPass
+      })
+      .catch(err=>{
+        res.send(err)
+      })
     }
   },sequelize });
   
