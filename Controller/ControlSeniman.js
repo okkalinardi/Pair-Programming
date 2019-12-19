@@ -13,7 +13,7 @@ class ControlSeniman {
                         unik.push(datas[i].tag)
                     }
                 }
-                res.render('pickProject', { tags: unik, dataUser: req.params.dataUser })
+                res.render('pickProject', { tags: unik, dataUser: req.session.UserId })
             })
     }
     static tampilFilteredSeniman(req, res) {
@@ -38,7 +38,7 @@ class ControlSeniman {
             })
             .then(listSemuaSeniman => {
                 // res.send(listSemuaSeniman)
-                res.render('listSeniman', { seniman: listSemuaSeniman, dataUser: infoUser })
+                res.render('listSeniman', { seniman: listSemuaSeniman, dataUser: req.session.UserId })
             })
     }
     static tampilProfileSeniman(req, res) {
@@ -58,7 +58,7 @@ class ControlSeniman {
         let infoUser
         modelUser.findOne({
             where: {
-                id: req.params.dataUser
+                id: req.session.UserId
             }
         })
             .then(user => {
@@ -84,9 +84,9 @@ class ControlSeniman {
                                     isHired: ubah,
                                     updatedAt: new Date()
                                 }, {
-                                    where: {
-                                        id: req.body.id
-                                    }
+                                        where: {
+                                            id: req.body.id
+                                        }
                                     })
                             })
                             .then(() => {

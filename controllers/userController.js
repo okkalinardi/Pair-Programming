@@ -1,7 +1,8 @@
 const user = require('../models').User
-const hashPass = require('../helper/passwordHash')
+const conj = require('../models').SenimanUser
 const seniman = require('../models').Seniman
-const senimanUser = require('../models').SenimanUser
+const passCheck = require('../helper/compareBcrypt')
+// const session = require('express-session')
 
 class userController {
     static addUser(req, res) {
@@ -10,7 +11,7 @@ class userController {
             name: req.body.name,
             email: req.body.email,
             isLogin: 0,
-            isAdmin: 0,
+            isAdmin: 1,
             password: req.body.password
         })
             .then(data => {
@@ -28,38 +29,21 @@ class userController {
     }
 
     static userLogin(req, res) {
-        let infoUser
-        user.findOne({ where: { isLogin: 1 } })
-            .then(loginData => {
-                if (loginData) {
-                    res.send('sedang ada yang login')
-                } else {
-                    return user.findOne({ where: { email: req.body.email } })
-                }
+        let userData
+        user.findOne({ where: { email: req.body.email } })
+            .then(user => {
+                userData = user
+                return passCheck(req.body.password, user.password)
             })
-            .then(userData => {
-                if (!userData) {
-                    res.send('email tidak ditemukan')
+            .then(success => {
+                if (success) {
+                    req.session.UserId = userData.id
+                    res.redirect(`/user/${req.session.UserId}`)
+                    // res.send(req.session)
+                    // console.log('INI SESSION===>', req.session)
                 } else {
-                    infoUser = userData
-                    let pwdInput = hashPass(req.body.password, userData.secret)
-                    if (pwdInput == userData.password) {
-                        return user.update({
-                            isLogin: 1,
-                            updatedAt: new Date()
-                        }, {
-                                where: {
-                                    email: userData.email
-                                }
-                            })
-                    } else {
-                        res.send('salah password')
-                    }
+                    res.send('not ok')
                 }
-            })
-            .then(data => {
-                res.send('berhasil masuk')
-                // res.render('user', { dataUser: infoUser })
             })
             .catch(err => {
                 res.send(err)
@@ -71,19 +55,44 @@ class userController {
     }
 
     static userLogout(req, res) {
-        user.update({
-            isLogin: 0,
+        req.session.destroy()
+        res.send('berhasil logout')
+    }
+
+    static userFinishedProject(req, res) {
+        conj.update({
+            projectStatus: 1,
             updatedAt: new Date()
         }, {
                 where: {
-                    id: req.params.id
+                    id: req.params.idProject
                 }
             })
-            .then(data => {
-                res.send('berhasil logout')
+            .then(berhasil => {
+                conj.findOne({ where: { id: req.params.idProject } })
+            })
+            .then(dataConj => {
+                seniman.findOne({ where: { id: dataConj.SenimanId } })
+            })
+            .then(dataSeniman => {
+                let slotUpdate = dataSeniman.slot + 1
+                seniman.update({
+                    slot: slotUpdate,
+                    updatedAt: new Date()
+                }, { where: { id: dataSeniman.id } })
+            })
+            .then(selesai => {
+                res.redirect('/user')
             })
             .catch(err => {
                 res.send(err)
+            })
+    }
+
+    static userPage(req, res) {
+        user.findOne({ where: { id: req.params.id }, include: seniman })
+            .then(userData => {
+                res.render('user', { infoUser: userData })
             })
     }
 
@@ -151,7 +160,7 @@ class userController {
                     }
                 })
                     .then(() => {
-                        return senimanUser.destroy({
+                        return conj.destroy({
                             where: {
                                 SenimanId: found.id
                             }
