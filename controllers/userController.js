@@ -2,6 +2,7 @@ const user = require('../models').User
 const conj = require('../models').SenimanUser
 const seniman = require('../models').Seniman
 const passCheck = require('../helper/compareBcrypt')
+const status = require('../helper/statusProject')
 // const session = require('express-session')
 
 class userController {
@@ -11,7 +12,7 @@ class userController {
             name: req.body.name,
             email: req.body.email,
             isLogin: 0,
-            isAdmin: 1,
+            isAdmin: 0,
             password: req.body.password
         })
             .then(data => {
@@ -69,20 +70,22 @@ class userController {
                 }
             })
             .then(berhasil => {
-                conj.findOne({ where: { id: req.params.idProject } })
+                return conj.findOne({ where: { id: req.params.idProject } })
             })
             .then(dataConj => {
-                seniman.findOne({ where: { id: dataConj.SenimanId } })
+                return seniman.findOne({ where: { id: dataConj.SenimanId } })
             })
             .then(dataSeniman => {
                 let slotUpdate = dataSeniman.slot + 1
-                seniman.update({
+                let hiredUpdate = dataSeniman.isHired - 1
+                return seniman.update({
                     slot: slotUpdate,
+                    isHired:hiredUpdate,
                     updatedAt: new Date()
                 }, { where: { id: dataSeniman.id } })
             })
             .then(selesai => {
-                res.redirect('/user')
+                res.redirect(`/user/${req.session.UserId}`)
             })
             .catch(err => {
                 res.send(err)
@@ -92,21 +95,31 @@ class userController {
     static userPage(req, res) {
         user.findOne({ where: { id: req.params.id }, include: seniman })
             .then(userData => {
-                res.render('user', { infoUser: userData })
+                // res.send(userData)
+                for (let i = 0; i < userData.Senimans.length; i++) {
+                    userData.Senimans[i].SenimanUser.projectStatus = status(userData.Senimans[i].SenimanUser.projectStatus)
+                }
+                // res.send(userData)
+                res.render('user', { infoUser: userData, userLog:req.session.UserId })
             })
     }
 
     static pageAdmin(req, res) {
         seniman.findAll({
-            include: user
-        }, {
-                order: [
-                    ["id", "ASC"]
-                ]
-            })
+            include: user,
+            order: [
+                ["id", "ASC"]
+            ]
+        })
             .then(datas => {
+                for (let i = 0; i < datas.length; i++) {
+                   for (let j = 0; j < datas[i].Users.length; j++) {
+                    datas[i].Users[j].SenimanUser.projectStatus = status(datas[i].Users[j].SenimanUser.projectStatus)
+                   }
+                    
+                }
                 // res.send(datas)
-                res.render('pageAdmin', { datas: datas })
+                res.render('pageAdmin', { datas: datas, userLog:req.session.UserId })
             })
             .catch(err => {
                 res.send(err)
@@ -140,7 +153,7 @@ class userController {
                 }
             })
             .then(() => {
-                res.redirect('/user/admin')
+                res.redirect(`/user/${req.session.UserId}/admin`)
             })
     }
 
@@ -166,13 +179,18 @@ class userController {
                             }
                         })
                             .then(() => {
-                                res.redirect('/user/admin')
+                                res.redirect(`/user/${req.session.UserId}/admin`)
                             })
                     })
             })
             .catch(err => {
                 res.send(err)
             })
+    }
+
+    static logout(req, res){
+        req.session.destroy()
+        res.redirect('/')
     }
 }
 

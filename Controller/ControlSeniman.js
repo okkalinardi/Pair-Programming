@@ -1,6 +1,7 @@
 const modelSeniman = require('../models').Seniman
 const modelSenimanUser = require('../models').SenimanUser
 const modelUser = require('../models').User
+const mailer = require('../helper/nodeMailer')
 
 class ControlSeniman {
     static tampilSeniman(req, res) {
@@ -56,6 +57,7 @@ class ControlSeniman {
     static hireSeniman(req, res) {
         // res.send(req.body)
         let infoUser
+        let infoSeniman
         modelUser.findOne({
             where: {
                 id: req.session.UserId
@@ -78,10 +80,13 @@ class ControlSeniman {
                             }
                         })
                             .then(siSeniman => {
+                                infoSeniman = siSeniman
                                 let hired = siSeniman.isHired
                                 let ubah = hired + 1
+                                let slotUpdate = siSeniman.slot - 1
                                 return modelSeniman.update({
                                     isHired: ubah,
+                                    slot:slotUpdate,
                                     updatedAt: new Date()
                                 }, {
                                         where: {
@@ -90,7 +95,8 @@ class ControlSeniman {
                                     })
                             })
                             .then(() => {
-                                res.redirect('/user')
+                                mailer(infoSeniman.id, infoUser.id, req.body.deskripsi)
+                                res.redirect(`/user/${req.session.UserId}`)
                             })
                     })
             })

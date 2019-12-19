@@ -24,6 +24,8 @@ app.use('/pick-project', pickProject)
 
 app.use('/user', userRoute)
 
+app.get('/logout', controller.logout)
+
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
