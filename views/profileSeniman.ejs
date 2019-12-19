@@ -3,28 +3,41 @@
 
 <head>
     <title>Artist Profile</title>
+    <style>
+        .images {
+            text-align: center
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
+    <%-include('./partials/header.ejs')%>
+    <div class="images">
+        <!-- <h1>
+            <%= seniman.name %>
+        </h1> -->
+        <h2>
+            <%= seniman.tag %>
+        </h2>
+        <h3>
+            <%= seniman.name%>'s works
+        </h3>
 
-    <h1>
-        <%= seniman.name %>
-    </h1>
-    <h2>
-        <%= seniman.tag %>
-    </h2>
-    <h3>
-        <%= seniman.name%>'s works
-    </h3>
 
-    <p>Like <%= seniman.name%>'s works? Hire them!</p>
-    <form method="POST">
-        <label for="deskripsi">Deskripsi project kamu</label>
-        <input type="text" name="deskripsi" placeholder="nama project, dan keterangan tambahan lain"><br>
-        <input type="hidden" value="<%=seniman.id%>" name="id"><br>
-        <button type="submit" value="submit">Hire</button>
-    </form>
+        <img src="https://images.unsplash.com/photo-1575251664080-ba2afe7e337a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+            alt="Flowers in Chania">
 
+        <p>Like <%= seniman.name%>'s works? Hire them!</p>
+        <form method="POST">
+            <label for="deskripsi">Deskripsi project kamu</label>
+            <input type="text" name="deskripsi" placeholder="nama project, dan keterangan tambahan lain"><br>
+            <input type="hidden" value="<%=seniman.id%>" name="id"><br>
+            <button class="btn btn-primary" btn-primarytype="submit" value="submit">Hire</button>
+        </form>
+    </div>
+    <%-include('./partials/sccript.ejs')%>
 
 </body>
 
