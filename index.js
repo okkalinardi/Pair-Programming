@@ -10,13 +10,13 @@ app.set('view engine', 'ejs');
 
 app.use(session({
     secret: 'keyboard cat'
-  }))
+}))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('./'))
 
 app.get('/', (req, res) => res.render('index'))
-app.post('/',logCheck, controller.userLogin)
+app.post('/', logCheck, controller.userLogin)
 
 const userRoute = require('./routes/user')
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Artist</title>
+</head>
+
+<body>
+
+    <h1>Edit <%= data.name%></h1>
+    <form method="POST">
+        Nama:
+        <input type="text" name="name" value="<%= data.name %>">
+        Email:
+        <input type="text" name="email" value="<%= data.email %>">
+        Kategori Seni:
+        <input type="text" name="tag" value="<%= data.tag %>">
+        <button type="submit">Submit!</button>
+    </form>
+
+</body>
+
+</html>
