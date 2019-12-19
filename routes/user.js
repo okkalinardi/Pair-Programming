@@ -5,7 +5,8 @@ const logCheck = require('../middleware/loginCheck')
 const userCheck = require('../middleware/userCheck')
 const app = express()
 
-// router.use(userCheck)
+
+router.use(logCheck, userCheck)
 router.get('/', function (req, res) {
     res.redirect(`user/${req.session.UserId}`)
 })

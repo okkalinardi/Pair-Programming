@@ -1,6 +1,9 @@
 const seniman = require('express').Router()
 const ControlSeniman = require('../Controller/ControlSeniman.js')
+const logCheck = require('../middleware/loginCheck')
+const userCheck = require('../middleware/userCheck')
 
+seniman.use(logCheck, userCheck)
 //menampilkan list kategori seni untuk user yang login
 seniman.get('/:dataUser', ControlSeniman.tampilSeniman)
 // seniman.get('/', ControlSeniman.tampilSeniman)
