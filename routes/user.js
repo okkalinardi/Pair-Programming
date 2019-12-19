@@ -5,15 +5,18 @@ const logCheck = require('../middleware/loginCheck')
 const userCheck = require('../middleware/userCheck')
 const app = express()
 
+// router.use(userCheck)
 router.get('/', function (req, res) {
-    res.redirect(`/${req.session.UserId}`)
+    res.redirect(`user/${req.session.UserId}`)
 })
 
 router.get('/:id', controller.userPage)
 
-router.get('/register', controller.registerUserPage)
+router.post('/:id', controller.userLogin)
 
-router.post('/register', (req, res) => {
+router.get('/:id/register', controller.registerUserPage)
+
+router.post('/:id/register', (req, res) => {
     // console.log(req.body)
     if (req.body.register) {
         controller.addUser(req, res)
@@ -23,26 +26,27 @@ router.post('/register', (req, res) => {
 })
 
 
-router.get('/login', function (req, res) {
+router.get('/:id/login', function (req, res) {
     res.render('loginPage')
 })
 
-router.post('/login', controller.userLogin)
+router.post('/:id/login', controller.userLogin)
 
 router.get('/:id/logout', controller.userLogout)
 
 
 //menampilkan list seniman dan bisa edit delete di setiap actionnya
-router.get('/admin', controller.pageAdmin)
+router.get('/:id/admin', controller.pageAdmin)
 
 //menampilkan form untuk mengedit artist(hanya bisa diakses admin)
-router.get('/admin/:senimanId/edit', controller.editArtist)
+router.get('/:id/admin/:senimanId/edit', controller.editArtist)
 
 //update ke database
-router.post('/admin/:senimanId/edit', controller.upArtist)
+router.post('/:id/admin/:senimanId/edit', controller.upArtist)
 
 //delete artist dari database
-router.get('/admin/:senimanId/delete', controller.deleteArtist)
-router.get('/:idProject/selesai', controller.userFinishedProject)
+router.get('/:id/admin/:senimanId/delete', controller.deleteArtist)
+
+router.get('/:id/:idProject/selesai', controller.userFinishedProject)
 
 module.exports = router

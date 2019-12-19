@@ -57,11 +57,7 @@
                         </li>
                         <li>
                             Status:
-                            <% if(datas[i].Users[j].SenimanUser.projectStatus === 0){ %>
-                            DONE
-                            <% }else{ %>
-                            ON PROGRESS
-                            <% } %>
+                            <%=datas[i].Users[j].SenimanUser.projectStatus%>
                         </li>
                         <br>
                     </ul>
@@ -72,9 +68,9 @@
                     <% } %>
                     <%   } %>
                 </td>
-                <td>
-                    <a href="/user/admin/<%=datas[i].id%>/edit">Edit</a>
-                    <a href="/user/admin/<%=datas[i].id%>/delete">Delete</a>
+                <td> 
+                    <a href="/user/<%=userLog%>/admin/<%=datas[i].id%>/edit">Edit</a>
+                    <a href="/user/<%=userLog%>/admin/<%=datas[i].id%>/delete">Delete</a>
                 </td>
             </tr>
             <%   } %>

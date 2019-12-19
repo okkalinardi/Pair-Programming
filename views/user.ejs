@@ -27,8 +27,8 @@
             <td><%= infoUser.Senimans[i].name%></td>
             <td><%=infoUser.Senimans[i].SenimanUser.projectStatus%></td>
             <td>
-            <% if(infoUser.Senimans[i].SenimanUser.projectStatus==0){%>
-                <button onclick="window.location.href='/user/<%=infoUser.Senimans[i].SenimanUser.id%>/selesai'">selesaikan</button>
+            <% if(infoUser.Senimans[i].SenimanUser.projectStatus=='On progress'){%>
+                <button onclick="window.location.href='/user/<%=userLog%>/<%=infoUser.Senimans[i].SenimanUser.id%>/selesai'">selesaikan</button>
             <%}else{%>
                 <button disabled>selesaikan</button>
                 <%}%>
