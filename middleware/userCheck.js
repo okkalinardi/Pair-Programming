@@ -3,6 +3,7 @@ function userCheck(req, res, next){
         res.redirect('/')
         // next()
     }else if(req.session.UserId!=req.params.id){
+        // res.send(req.params)
         res.send('Access unauthorized')
         // next()
     }else{
