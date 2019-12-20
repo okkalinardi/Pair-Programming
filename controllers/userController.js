@@ -42,7 +42,7 @@ class userController {
         user.findOne({ where: { email: req.body.email } })
             .then(user => {
                 if (!user) {
-                    res.send('wrong email')
+                    throw new Error('Wrong Email')
                 } else {
                     userData = user
                     return passCheck(req.body.password, user.password)
@@ -55,21 +55,16 @@ class userController {
                     // res.send(req.session)
                     // console.log('INI SESSION===>', req.session)
                 } else {
-                    res.send('wrong password')
+                    throw new Error('Wrong Password')
                 }
             })
             .catch(err => {
-                res.send(err)
+                res.render('errorPage', {error:err})
             })
     }
 
     static loginPage(req, res) {
         res.render('loginPage')
-    }
-
-    static userLogout(req, res) {
-        req.session.destroy()
-        res.send('berhasil logout')
     }
 
     static userFinishedProject(req, res) {
@@ -100,7 +95,7 @@ class userController {
                 res.redirect(`/user/${req.session.UserId}`)
             })
             .catch(err => {
-                res.send(err)
+                res.render('errorPage', {error:err})
             })
     }
 
@@ -113,6 +108,9 @@ class userController {
                 }
                 // res.send(userData)
                 res.render('user', { infoUser: userData, userLog: req.session.UserId })
+            })
+            .catch(err=>{
+                res.render('errorPage', {error:err})
             })
     }
 
@@ -134,7 +132,7 @@ class userController {
                 res.render('pageAdmin', { datas: datas, userLog: req.session.UserId })
             })
             .catch(err => {
-                res.send(err)
+                res.render('errorPage', {error:err})
             })
     }
 
@@ -149,7 +147,7 @@ class userController {
                 res.render('formEditArtist', { data: data })
             })
             .catch(err => {
-                res.send(err)
+                res.render('errorPage', {error:err})
             })
     }
 
@@ -166,6 +164,9 @@ class userController {
         })
             .then(() => {
                 res.redirect(`/user/${req.session.UserId}/admin`)
+            })
+            .catch(err=>{
+                res.render('errorPage', {error:err})
             })
     }
 
@@ -196,7 +197,7 @@ class userController {
                     })
             })
             .catch(err => {
-                res.send(err)
+                res.render('errorPage', {error:err})
             })
     }
 
@@ -218,7 +219,7 @@ class userController {
                 res.redirect(`/user/${req.session.UserId}/admin`)
             })
             .catch((err) => {
-                res.send(err)
+                res.render('errorPage', {error:err})
             })
     }
 }

@@ -4,7 +4,7 @@ function userCheck(req, res, next){
         // next()
     }else if(req.session.UserId!=req.params.id){
         // res.send(req.params)
-        res.send('Access unauthorized')
+        res.render('errorPage', {error:'Access Unauthorized'})
         // next()
     }else{
         next()

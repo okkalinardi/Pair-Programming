@@ -20,4 +20,8 @@ seniman.get('/:dataUser/:tag/:id', ControlSeniman.tampilProfileSeniman)
 seniman.post('/:dataUser/:tag/:id', ControlSeniman.hireSeniman)
 // seniman.post('/:tag/:id', ControlSeniman.hireSeniman)
 
+// seniman.get('/:dataUser//:id', function(req, res){
+//     res.redirect('/:dataUser')
+// })
+
 module.exports = seniman

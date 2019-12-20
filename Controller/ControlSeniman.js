@@ -16,6 +16,9 @@ class ControlSeniman {
                 }
                 res.render('pickProject', { tags: unik, dataUser: req.session.UserId })
             })
+            .catch(err=>{
+                res.render('errorPage', {error:err})
+            })
     }
     static tampilFilteredSeniman(req, res) {
         // res.send(req.params)
@@ -41,6 +44,9 @@ class ControlSeniman {
                 // res.send(listSemuaSeniman)
                 res.render('listSeniman', { seniman: listSemuaSeniman, dataUser: req.session.UserId })
             })
+            .catch(err=>{
+                res.render('errorPage', {error:err})
+            })
     }
     static tampilProfileSeniman(req, res) {
         modelSeniman.findOne({
@@ -51,6 +57,9 @@ class ControlSeniman {
             .then(data => {
                 // res.send(data)
                 res.render('profileSeniman', { seniman: data })
+            })
+            .catch(err=>{
+                res.render('errorPage', {error:err})
             })
     }
 
@@ -101,8 +110,8 @@ class ControlSeniman {
                             })
                     })
             })
-            .catch(err => {
-                res.send(err)
+            .catch(err=>{
+                res.render('errorPage', {error:err})
             })
 
 
