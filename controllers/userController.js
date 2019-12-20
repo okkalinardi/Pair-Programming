@@ -80,7 +80,7 @@ class userController {
                 let hiredUpdate = dataSeniman.isHired - 1
                 return seniman.update({
                     slot: slotUpdate,
-                    isHired:hiredUpdate,
+                    isHired: hiredUpdate,
                     updatedAt: new Date()
                 }, { where: { id: dataSeniman.id } })
             })
@@ -100,7 +100,7 @@ class userController {
                     userData.Senimans[i].SenimanUser.projectStatus = status(userData.Senimans[i].SenimanUser.projectStatus)
                 }
                 // res.send(userData)
-                res.render('user', { infoUser: userData, userLog:req.session.UserId })
+                res.render('user', { infoUser: userData, userLog: req.session.UserId })
             })
     }
 
@@ -113,13 +113,13 @@ class userController {
         })
             .then(datas => {
                 for (let i = 0; i < datas.length; i++) {
-                   for (let j = 0; j < datas[i].Users.length; j++) {
-                    datas[i].Users[j].SenimanUser.projectStatus = status(datas[i].Users[j].SenimanUser.projectStatus)
-                   }
-                    
+                    for (let j = 0; j < datas[i].Users.length; j++) {
+                        datas[i].Users[j].SenimanUser.projectStatus = status(datas[i].Users[j].SenimanUser.projectStatus)
+                    }
+
                 }
                 // res.send(datas)
-                res.render('pageAdmin', { datas: datas, userLog:req.session.UserId })
+                res.render('pageAdmin', { datas: datas, userLog: req.session.UserId })
             })
             .catch(err => {
                 res.send(err)
@@ -188,9 +188,26 @@ class userController {
             })
     }
 
-    static logout(req, res){
+    static logout(req, res) {
         req.session.destroy()
         res.redirect('/')
+    }
+
+    static addArtist(req, res) {
+        // res.send(req.body)
+        seniman.create({
+            name: req.body.name,
+            email: req.body.email,
+            tag: req.body.tag,
+            isHired: 0,
+            slot: req.body.slot
+        })
+            .then(() => {
+                res.redirect(`/user/${req.session.UserId}/admin`)
+            })
+            .catch((err) => {
+                res.send(err)
+            })
     }
 }
 

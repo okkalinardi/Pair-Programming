@@ -6,7 +6,7 @@ const userCheck = require('../middleware/userCheck')
 const app = express()
 
 
-router.use(logCheck, userCheck)
+// router.use(userCheck)
 router.get('/', function (req, res) {
     res.redirect(`user/${req.session.UserId}`)
 })
@@ -38,6 +38,7 @@ router.get('/:id/logout', controller.userLogout)
 
 //menampilkan list seniman dan bisa edit delete di setiap actionnya
 router.get('/:id/admin', controller.pageAdmin)
+router.post('/:id/admin', controller.addArtist)
 
 //menampilkan form untuk mengedit artist(hanya bisa diakses admin)
 router.get('/:id/admin/:senimanId/edit', controller.editArtist)
@@ -49,5 +50,7 @@ router.post('/:id/admin/:senimanId/edit', controller.upArtist)
 router.get('/:id/admin/:senimanId/delete', controller.deleteArtist)
 
 router.get('/:id/:idProject/selesai', controller.userFinishedProject)
+
+
 
 module.exports = router

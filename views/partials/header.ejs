@@ -1,33 +1,35 @@
 <h1 style="text-align: center;">CreaWorks!</h1>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">CW</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/pick-project/:dataUser">Pick a Project</a>
-        </li>
-        <li class="nav-item dropdown" style="align-self: right;">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Login
-          </a>
-          <div class="dropdown-menu ml-auto" aria-labelledby="navbarDropdownMenuLink">
-              <form method="POST">
-                email: <input type="text" name="email"><br>
-                password:<input type="password" name="password"><br><br>
-                <button type="submit" name="login" value="login">login</button><br>
-                don't have an account?<a href="/user/register">click here</a>
-              </form>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/user">Your Page</a>
-        </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
-              </li>
-      </ul>
-    </div>
-  </nav>
+  <a class="navbar-brand" href="/">CW</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/pick-project/:dataUser">Pick a Project</a>
+      </li>
+      <li class="nav-item dropdown" style="align-self: right;">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Login
+        </a>
+        <div class="dropdown-menu ml-auto" aria-labelledby="navbarDropdownMenuLink">
+          <form method="POST">
+            email: <input type="text" name="email"><br>
+            password:<input type="password" name="password"><br><br>
+            <button type="submit" name="login" value="login">login</button><br>
+            don't have an account?<a href="/user/register">click here</a>
+          </form>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user">Your Page</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
