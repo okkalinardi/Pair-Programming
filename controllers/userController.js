@@ -204,6 +204,23 @@ class userController {
         req.session.destroy()
         res.redirect('/')
     }
+
+    static addArtist(req, res) {
+        // res.send(req.body)
+        seniman.create({
+            name: req.body.name,
+            email: req.body.email,
+            tag: req.body.tag,
+            isHired: 0,
+            slot: req.body.slot
+        })
+            .then(() => {
+                res.redirect(`/user/${req.session.UserId}/admin`)
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+    }
 }
 
 module.exports = userController

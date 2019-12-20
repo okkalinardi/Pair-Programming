@@ -3,81 +3,109 @@
 
 <head>
     <title>Admin</title>
+    <style>
+        h1 {
+            top: 10px;
+            text-align: center
+        }
 
+        body {
+            text-align: center;
+        }
+
+        .table {
+            text-align: center
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
+    <div class="containter">
 
-    <h1>Welcome, Admin</h1>
-    <p>This is a paragraph.</p>
+        <%-include('./partials/header.ejs')%>
+        <h1>Welcome, Admin</h1>
 
-    <table width="100%" border="1">
-        <thead>
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Kategori Seni
-                </th>
-                <th>
-                    Projects
-                </th>
-                <th>
-                    Action
-                </th>
+        <table width="100%" border="1" class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Kategori Seni
+                    </th>
+                    <th>
+                        Projects
+                    </th>
+                    <th>
+                        Action
+                    </th>
 
-            </tr>
-        </thead>
-        <tbody>
-            <% for(let i = 0; i < datas.length; i++){ %>
-            <% if(datas[i].slot){ %>
-            <tr>
-                <td>
-                    <%= datas[i].id %>
-                </td>
-                <td>
-                    <%= datas[i].name %>
-                </td>
-                <td>
-                    <%= datas[i].tag %>
-                </td>
-                <td>
-                    <% for(let j = 0; j < datas[i].Users.length; j++){ %>
-                    <%   if(datas[i].Users[j].length !== 0){ %>
-                    <ul>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < datas.length; i++){ %>
+                <% if(datas[i].slot){ %>
+                <tr>
+                    <td>
+                        <%= datas[i].id %>
+                    </td>
+                    <td>
+                        <%= datas[i].name %>
+                    </td>
+                    <td>
+                        <%= datas[i].tag %>
+                    </td>
+                    <td>
+                        <% for(let j = 0; j < datas[i].Users.length; j++){ %>
+                        <%   if(datas[i].Users[j].length !== 0){ %>
+                        <ul>
+                            <li>
+                                Project: <%= datas[i].Users[j].SenimanUser.projectName %>
+                            </li>
+                            <li>
+                                User: <%= datas[i].Users[j].name %>
+                            </li>
+                            <li>
+                                Status:
+                                <%=datas[i].Users[j].SenimanUser.projectStatus%>
+                            </li>
+                            <br>
+                        </ul>
+                        <%  } else{ %>
                         <li>
-                            Project: <%= datas[i].Users[j].SenimanUser.projectName %>
+                            NO Projects...
                         </li>
-                        <li>
-                            User: <%= datas[i].Users[j].name %>
-                        </li>
-                        <li>
-                            Status:
-                            <%=datas[i].Users[j].SenimanUser.projectStatus%>
-                        </li>
-                        <br>
-                    </ul>
-                    <%  } else{ %>
-                    <li>
-                        NO Projects...
-                    </li>
-                    <% } %>
-                    <%   } %>
-                </td>
-                <td> 
-                    <a href="/user/<%=userLog%>/admin/<%=datas[i].id%>/edit">Edit</a>
-                    <a href="/user/<%=userLog%>/admin/<%=datas[i].id%>/delete">Delete</a>
-                </td>
-            </tr>
-            <%   } %>
-            <%  }%>
-        </tbody>
-    </table>
-
+                        <% } %>
+                        <%   } %>
+                    </td>
+                    <td>
+                        <a href="/user/<%=userLog%>/admin/<%=datas[i].id%>/edit">Edit</a>
+                        <a href="/user/<%=userLog%>/admin/<%=datas[i].id%>/delete">Delete</a>
+                    </td>
+                </tr>
+                <%   } %>
+                <%  }%>
+            </tbody>
+        </table>
+        <form method="POST">
+            Name:<br>
+            <input type="text" name="name"><br>
+            Email:<br>
+            <input type="email" name="email"><br>
+            Kategori Seni: <br>
+            <input type="text" name="tag"><br>
+            Slot: <br>
+            <input type="number" name="slot"><br>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    <%-include('./partials/script.ejs')%>
 </body>
 
 </html>

@@ -3,12 +3,21 @@
 
 <head>
     <title>Matching Artists</title>
+    <style>
+        .table {
+            text-align: center
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
+    <%-include('./partials/header.ejs')%>
     <h1>These are our currated artists that might fill your need!</h1>
-    <table border="1">
-        <thead>
+    <table border="1" class="table">
+        <thead class="thead-dark">
             <tr>
                 <th>
                     Name
@@ -33,7 +42,7 @@
             <% } %>
         </tbody>
     </table>
-
+    <%-include('./partials/script.ejs')%>
 </body>
 
 </html>

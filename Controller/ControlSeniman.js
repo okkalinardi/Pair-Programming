@@ -61,6 +61,7 @@ class ControlSeniman {
         modelUser.findOne({
             where: {
                 id: req.session.UserId
+                // id: 1
             }
         })
             .then(user => {
@@ -86,7 +87,7 @@ class ControlSeniman {
                                 let slotUpdate = siSeniman.slot - 1
                                 return modelSeniman.update({
                                     isHired: ubah,
-                                    slot:slotUpdate,
+                                    slot: slotUpdate,
                                     updatedAt: new Date()
                                 }, {
                                         where: {
@@ -99,6 +100,9 @@ class ControlSeniman {
                                 res.redirect(`/user/${req.session.UserId}`)
                             })
                     })
+            })
+            .catch(err => {
+                res.send(err)
             })
 
 
