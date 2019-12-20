@@ -6,14 +6,15 @@ const userCheck = require('../middleware/userCheck')
 const app = express()
 
 
-router.use(logCheck, userCheck)
 router.get('/', function (req, res) {
     res.redirect(`user/${req.session.UserId}`)
 })
 
-router.get('/:id', controller.userPage)
+// router.use(userCheck)
 
-router.post('/:id', controller.userLogin)
+router.get('/:id',userCheck, controller.userPage)
+
+router.post('/:id', logCheck, controller.userLogin)
 
 router.get('/:id/register', controller.registerUserPage)
 
@@ -32,9 +33,6 @@ router.get('/:id/login', function (req, res) {
 })
 
 router.post('/:id/login', controller.userLogin)
-
-router.get('/:id/logout', controller.userLogout)
-
 
 //menampilkan list seniman dan bisa edit delete di setiap actionnya
 router.get('/:id/admin', controller.pageAdmin)
